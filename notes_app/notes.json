@@ -1,5 +1,1 @@
-[
-  { "title": "t", "body": "b" },
-  { "title": "list", "body": "apple, grapes, kiwi" },
-  { "title": "list2", "body": "banana, mango, kiwi" }
-]
+[{"title":"list","body":"apple, grapes, kiwi"},{"title":"list2","body":"banana, mango, kiwi"}]
