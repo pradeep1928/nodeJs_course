@@ -1,14 +1,9 @@
-// const fs = require('fs');
-// fs.appendFileSync('node.txt', "\nThis is appendFileSync command");
+const yargs = require("yargs");
+const notes = require("./notes");
+const fs = require('fs');
 
 // const validator = require("validator")
 // const chalk = require("chalk");
-const { version } = require("yargs");
-const yargs = require("yargs");
-
-const notes = require("./notes");
-const note = notes();
-console.log(note);
 
 // console.log("validating email ", validator.isEmail('pradeep12@gmail.com'))
 // console.log("validating url ", validator.isURL('https://pradeep12@gmail.com'))
@@ -46,7 +41,7 @@ yargs.command({
   },
 
   handler: function (argv) {
-    console.log("Title: " + argv.title + '\nBody: ' + argv.body);
+    notes.addNote(argv.title, argv.body)
   },
 });
 

@@ -1,2 +1,0 @@
-Hello worldThis is appendFileSync command
-This is appendFileSync command
