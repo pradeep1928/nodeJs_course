@@ -1,6 +1,6 @@
 const yargs = require("yargs");
 const notes = require("./notes");
-const fs = require('fs');
+const fs = require("fs");
 
 // const validator = require("validator")
 // const chalk = require("chalk");
@@ -34,14 +34,14 @@ yargs.command({
       type: "string",
     },
     body: {
-        describe: 'note body',
-        demandOption: true,
-        type: 'string'
-    }
+      describe: "note body",
+      demandOption: true,
+      type: "string",
+    },
   },
 
-  handler (argv) {
-    notes.addNote(argv.title, argv.body)
+  handler(argv) {
+    notes.addNote(argv.title, argv.body);
   },
 });
 
@@ -51,24 +51,40 @@ yargs.command({
   describe: "remove a new note",
   builder: {
     title: {
-        describe: "note title",
-        demandOption: true,
-        type: "string",
-      },
+      describe: "note title",
+      demandOption: true,
+      type: "string",
     },
+  },
   handler(argv) {
     notes.removeNote(argv.title);
+  },
+});
+
+// Create list command using yargs
+yargs.command({
+  command: "list",
+  describe: "List your note",
+  handler(argv) {
+    notes.listNotes();
   },
 });
 
 // Create read command using yargs
 yargs.command({
   command: "read",
-  describe: "read a new note",
-  handler (argv) {
-    console.log('reading the notes');
+  describe: "read your note",
+  builder: {
+    title: {
+      describe: "note title",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler(argv) {
+    notes.readNotes(argv.title)
   },
 });
 
 // console.log(yargs.argv);
-yargs.parse()
+yargs.parse();
