@@ -32,6 +32,7 @@
 let arr = [1, 3, 4, 6, 1, 3];
 
 const filter = arr.filter((val, ind) => {
+    console.log(ind + ' ' + val)
     return arr.indexOf(val) == ind
 })
 
