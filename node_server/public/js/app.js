@@ -1,0 +1,1 @@
+console.log('this is js in public')
