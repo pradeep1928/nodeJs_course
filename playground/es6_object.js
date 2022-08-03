@@ -11,7 +11,7 @@ console.log(productLabel, price, rating)
 
 
 // destructuring directly in function 
-const transaction = (type, {label, price}) => {
+const transaction = (type, {label, price = 0} = {}) => {
     console.log(type, label, price)
 }
 

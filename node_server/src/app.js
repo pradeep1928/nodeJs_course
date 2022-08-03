@@ -1,9 +1,8 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
-const { time } = require("console");
-const { title } = require("process");
-const { query } = require("express");
+const geoCode = require("./utils/geoCode");
+const forecast = require("./utils/forecast");
 
 const app = express();
 // app.use(express.json())
@@ -45,24 +44,34 @@ app.get("/help", (req, res) => {
   });
 });
 
-
-app.get('/weather', (req, res) => {
+app.get("/weather", (req, res) => {
   if (!req.query.address) {
     return res.send({
-      error: 'Yoo must provide an address'
-    })
+      error: "Yoo must provide an address",
+    });
   }
-  res.send({
-    forecast: "It showing weather",
-    address: req.query.address
-  })
-})
+  geoCode(req.query.address, (error, { location } = {}) => {
+    if (error) {
+      res.send({ error });
+    }
+
+    forecast(location, (error, forecastData) => {
+      if (error) {
+        res.send({ error });
+      }
+      res.send({
+        forecast: forecastData,
+        location,
+      });
+    });
+  });
+});
 
 app.get("/help/*", (req, res) => {
   res.render("404", {
     title: "404",
     errmsg: "This page is not found",
-    name: 'pradeep'
+    name: "pradeep",
   });
 });
 
@@ -70,7 +79,7 @@ app.get("*", (req, res) => {
   res.render("404", {
     title: "404",
     errmsg: "404 page not found",
-    name: 'pradeep'
+    name: "pradeep",
   });
 });
 
