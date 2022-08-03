@@ -3,6 +3,7 @@ const path = require("path");
 const hbs = require("hbs");
 const { time } = require("console");
 const { title } = require("process");
+const { query } = require("express");
 
 const app = express();
 // app.use(express.json())
@@ -43,6 +44,19 @@ app.get("/help", (req, res) => {
     name: "Pradeep",
   });
 });
+
+
+app.get('/weather', (req, res) => {
+  if (!req.query.address) {
+    return res.send({
+      error: 'Yoo must provide an address'
+    })
+  }
+  res.send({
+    forecast: "It showing weather",
+    address: req.query.address
+  })
+})
 
 app.get("/help/*", (req, res) => {
   res.render("404", {
