@@ -4,7 +4,8 @@ const path = require('path')
 const app = express()
 app.use(express.json())
 
-console.log(path.join(__dirname, '../public'))
+// console.log(path.join(__dirname))
+// console.log(path.join(__filename))
 
 const publicDirPath = path.join(__dirname, '../public')
 app.use(express.static(publicDirPath))
