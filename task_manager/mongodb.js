@@ -37,13 +37,21 @@ MongoClient.connect(connUrl, { useNewUrlParser: true }, (error, client) => {
 //   db.collection("users").insertMany(
 //     [
 //       {
-//         name: "pradeep",
+//         name: "raj",
 //         role: "AI",
+//         age: 34
 //       },
 //       {
 //         name: "dugu",
 //         role: "ML",
+//         age: 26
 //       },
+//       {
+//         name: "riya",
+//         role: "teacher",
+//         age: 25
+//       },
+
 //     ],
 //     (error, result) => {
 //       if (error) {
@@ -52,6 +60,29 @@ MongoClient.connect(connUrl, { useNewUrlParser: true }, (error, client) => {
 //       console.log(result.ops);
 //     }
 //   );
+
+//   Updating the document. 
+// db.collection('users').updateOne({
+//     name: "riya"
+// }, {
+//     $inc: {
+//         age: 1
+//     }
+// }).then((result) => {
+//     console.log(result)
+// }).catch((error) => {
+//     console.log(error)
+// })
+
+// Deleting document. 
+
+db.collection("users").deleteMany({
+    age: 26
+}).then((result) => {
+    console.log(result)
+}).catch((error) => {
+    console.log(error)
+})
 
 //   db.collection("task").insertMany(
 //     [
@@ -77,21 +108,21 @@ MongoClient.connect(connUrl, { useNewUrlParser: true }, (error, client) => {
 //   );
 
 // fetching data from db. 
-  db.collection("task").findOne({ _id: new ObjectID("62eb963ef5896b816f239adb")}, (error, user) => {
-    if (error) {
-        return console.log('Unable to fetch')
-    }
-    console.log(user)
-  })
+//   db.collection("task").findOne({ _id: new ObjectID("62eb963ef5896b816f239adb")}, (error, user) => {
+//     if (error) {
+//         return console.log('Unable to fetch')
+//     }
+//     console.log(user)
+//   })
 
-//   use of Cursor. 
-  db.collection("task").find({ completed: true}).toArray((error, task) => {
-    console.log(task)
-  })
+// //   use of Cursor. 
+//   db.collection("task").find({ completed: true}).toArray((error, task) => {
+//     console.log(task)
+//   })
 
-  db.collection("task").find({ completed: true}).count((error, count) => {
-    console.log(count)
-  })
+//   db.collection("task").find({ completed: true}).count((error, count) => {
+//     console.log(count)
+//   })
 
 
 
