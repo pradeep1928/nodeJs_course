@@ -1,5 +1,6 @@
-const { model } = require('mongoose');
+const { model, STATES } = require('mongoose');
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api", {
     useNewUrlParser: true,
@@ -8,17 +9,49 @@ mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api", {
 
 // const User = mongoose.model('User',{
 //  name: {
-//     type: String
+//     type: String,
+//     required: true,
+//     trim: true
 //  }, 
+//  email: {
+//     type: String,
+//     required: true,
+//     trim: true,
+//     lowercase: true,
+//     validate(value) {
+//         if (!validator.isEmail(value)) {
+//             throw new Error("email is invalid")
+//         }
+//     }
+//  },
 //  age: {
-//     type: Number
+//     type: Number,
+//     default: 0,
+//     validate(value) {
+//         if (value < 0) {
+//             throw new Error("Age must be positive number.")
+//         }
+//     }
+//  },
+//  password: {
+//     type: String,
+//     required: true,
+//     trim: true,
+//     minlength: 7,
+//     validate(value) {
+//         if (value.toLowerCase().includes('password')) {
+//             throw new Error('password cannot contain word "password"')
+//         }
+//     }
 //  }
 // })
 
 
 // const user = new User({
-//     name: 'Rahul',
-//     age: 26
+//     name: '  sameer',
+//     age: 24,
+//     email: ' SAmeer@gmail.com',
+//     password: 'gfdpasswordsds'
 // })
 
 // user.save().then(() => {
@@ -32,10 +65,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api", {
 
 const Task = new model("Task", {
     description: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     }, 
    completed: {
-    type: Boolean
+    type: Boolean,
+    default: false
    }
 })
 
