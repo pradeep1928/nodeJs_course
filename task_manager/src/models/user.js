@@ -49,6 +49,17 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
+// Removing sensetive data from respose 
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject()
+
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+}
+
 // Generating userAuthToken 
 userSchema.methods.generateAuthToken = async function() {
   const user = this
