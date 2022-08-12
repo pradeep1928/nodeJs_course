@@ -3,11 +3,15 @@ const router = new express.Router();
 const multer = require("multer");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
+// const { sendWelcomemail } = require('../emails/account')
 
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
+ 
   try {
     await user.save();
+    // sendWelcomeEmail(user.email, user.name)     // To send email
+    // sendWelcomemail(user.email, user.name)
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (error) {
@@ -21,6 +25,7 @@ router.post("/users", async (req, res) => {
   //         res.status(400).send(error)
   //    })
 });
+
 
 router.post("/users/login", async (req, res) => {
   try {
@@ -135,6 +140,7 @@ router.patch("/users/me", auth, async (req, res) => {
   }
 });
 
+
 router.delete("/users/me", auth, async (req, res) => {
   try {
     // const user = await User.findByIdAndDelete(req.params.id);
@@ -142,6 +148,7 @@ router.delete("/users/me", auth, async (req, res) => {
     //   return res.status(404).send("User not found");
     // }
     await req.user.remove();
+    // sendCancelationEmail(req.user.email, req.user.name)   // To send email
     res.status(200).send(req.user);
   } catch (error) {
     res.status(500).send(error);
